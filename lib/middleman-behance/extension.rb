@@ -10,6 +10,7 @@ module Middleman
 
     option :index_path, 'projects', 'Portfolio index path'
     option :access_token, nil, 'Behance API access token'
+    option :user, nil, 'Behance user name or ID'
 
     def initialize(app, options_hash = {}, &block)
       # Call super to build options from the options_hash
@@ -19,12 +20,13 @@ module Middleman
       require 'behance'
     end
 
-    def connect_client
-      @client = Behance::Client.new access_token: options.access_token
+    def fetch_projects
+      @projects = Behance::Client.new(access_token: options.access_token)
+                                 .user_projects(options.user)
     end
 
     def after_configuration
-      connect_client
+      fetch_projects
     end
 
     # A Sitemap Manipulator
