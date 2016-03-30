@@ -1,6 +1,8 @@
 source "https://rubygems.org"
 
-ruby "2.2.3"
+ruby "2.3.0"
+
+gem 'behance'
 
 group :development do
   gem "bundler-audit", require: false
