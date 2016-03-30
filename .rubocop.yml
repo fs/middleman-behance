@@ -5,6 +5,7 @@ AllCops:
   DisplayCopNames: true
   Exclude:
     - bin/**/*
+    - vendor/**/*
 
 Style/Documentation:
   Description: 'Document classes and non-namespace modules.'

@@ -1,1 +1,1 @@
-reqiire 'middleman_behance'
+require 'middleman_behance'
