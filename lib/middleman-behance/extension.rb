@@ -4,21 +4,27 @@ require 'middleman-core'
 # Extension namespace
 module Middleman
   class BehanceExtension < ::Middleman::Extension
-    # option :my_option, 'default', 'An example option'
+    extend Forwardable
+
+    def_delegator :app, :logger
+
+    option :index_path, 'projects', 'Portfolio index path'
+    option :access_token, nil, 'Behance API access token'
 
     def initialize(app, options_hash = {}, &block)
       # Call super to build options from the options_hash
       super
 
       # Require libraries only when activated
-      # require 'necessary/library'
+      require 'behance'
+    end
 
-      # set up your extension
-      # puts options.my_option
+    def connect_client
+      @client = Behance::Client.new access_token: options.access_token
     end
 
     def after_configuration
-      # Do something
+      connect_client
     end
 
     # A Sitemap Manipulator
