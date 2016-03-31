@@ -10,4 +10,7 @@ group :development do
   gem "rspec"
   gem "rubocop"
   gem "rubocop-rspec", require: false
+  gem 'pry'
+  gem 'pry-bloodline'
+  gem 'awesome_print'
 end

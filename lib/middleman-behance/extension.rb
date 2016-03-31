@@ -1,13 +1,12 @@
 # Require core library
 require 'middleman-core'
 require 'wrapper'
+require 'sitemap_resource'
 
 # Extension namespace
 module Middleman
   class BehanceExtension < ::Middleman::Extension
     extend Forwardable
-
-    TEMPLATES_DIR = File.expand_path('../templates/source/', __FILE__)
 
     def_delegator :app, :logger
 
@@ -28,7 +27,8 @@ module Middleman
 
     # A Sitemap Manipulator
     def manipulate_resource_list(resources)
-      resources << portfolio_resource
+      resources << SitemapResource.new(app.sitemap, options.index_path,
+                                       :portfolio, @projects).resource
 
       resources
     end
@@ -39,25 +39,6 @@ module Middleman
       @projects = BehanceWrapper
                   .new(options.access_token, options.user)
                   .projects
-    end
-
-    def portfolio_resource
-      Middleman::Sitemap::Resource
-      .new(app.sitemap, options.index_path, source_file(:portfolio))
-      .tap do |resource|
-        resource.add_metadata({
-          locals: {
-            projects: @projects
-          }
-        })
-      end
-    end
-
-    def source_file(type)
-      path = File.join TEMPLATES_DIR, "#{type}.html.erb"
-      raise "Template #{type} does not exist" if !File.exist?(path)
-
-      path
     end
   end
 end

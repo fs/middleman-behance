@@ -22,6 +22,9 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('rubocop')
   gem.add_development_dependency('rubocop-rspec')
   gem.add_development_dependency('bundler-audit')
+  gem.add_development_dependency('pry')
+  gem.add_development_dependency('pry-bloodline')
+  gem.add_development_dependency('awesome_print')
 
   gem.require_paths = ["lib"]
 
