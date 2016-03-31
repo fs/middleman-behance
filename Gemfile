@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '2.3.0'
-
 gem 'behance'
 gem 'middleman-core'
 gem 'slugify', '~> 1.0', '>= 1.0.6'

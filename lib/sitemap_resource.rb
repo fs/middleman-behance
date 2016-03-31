@@ -5,8 +5,9 @@ class SitemapResource
   TEMPLATES_DIR = File.expand_path '../middleman-behance/templates/source/',
                                    __FILE__
 
-  def initialize(sitemap, path, type, data)
-    @sitemap = sitemap
+  def initialize(app, path, type, data)
+    @sitemap = app.sitemap
+    @source_dir = app.source_dir
     @type = type
     @data = data
     @path = path
@@ -34,9 +35,13 @@ class SitemapResource
   end
 
   def source_file
-    path = File.join TEMPLATES_DIR, "#{@type}.html.erb"
-    raise "Template #{@type} does not exist" if !File.exist?(path)
+    filename = "#{@type}.html.erb"
+    custom_template = File.join @source_dir, filename
+    return custom_template if File.exist?(custom_template)
 
-    path
+    template = File.join TEMPLATES_DIR, filename
+    raise "Template #{@type} does not exist" if !File.exist?(template)
+
+    template
   end
 end

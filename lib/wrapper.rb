@@ -10,7 +10,7 @@ class BehanceWrapper
 
   def projects
     project_ids.map do |id|
-      project = @client.project(id)
+      project = @client.project id
       project['slug'] = project['name'].slugify
 
       project

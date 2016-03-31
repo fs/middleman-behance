@@ -13,9 +13,6 @@ module Middleman
     option :index_path, 'projects', 'Portfolio index path'
     option :access_token, '', 'Behance API access token'
     option :user, '', 'Behance user name or ID'
-    option :project_template, 'project.html.erb', 'Single project page template'
-    option :portfolio_template, 'portfolio.html.erb',
-           'Portfolio index page template'
 
     def initialize(app, options_hash = {}, &block)
       super
@@ -27,11 +24,11 @@ module Middleman
 
     # A Sitemap Manipulator
     def manipulate_resource_list(resources)
-      resources << SitemapResource.new(app.sitemap, options.index_path,
-                                       :portfolio, @projects).resource
+      resources << SitemapResource.new(app, options.index_path, :portfolio,
+                                       @projects).resource
 
       @projects.each do |project|
-        resources << SitemapResource.new(app.sitemap,
+        resources << SitemapResource.new(app,
         "#{options.index_path}/#{project['slug']}", :project, project).resource
       end
 
