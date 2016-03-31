@@ -1,8 +1,8 @@
 <ul>
   <% projects.each do |p| %>
     <li>
-      <a href="<%= p.url %>">
-        <h1><%= p.name %></h1>
+      <a href="<%= p["url"] %>">
+        <h1><%= p["name"] %></h1>
       </a>
     </li>
   <% end %>
