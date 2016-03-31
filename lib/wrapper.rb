@@ -14,6 +14,10 @@ class BehanceWrapper
   private
 
   def project_ids
-    @client.user_projects(@user).map { |project| project['id'] }
+    begin
+      @projects = @client.user_projects(@user).map { |project| project['id'] }
+    rescue NoMethodError
+      raise 'Can not fetch user projects. Please, check your Behance API access'
+    end
   end
 end
