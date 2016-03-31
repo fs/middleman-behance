@@ -7,6 +7,8 @@ module Middleman
   class BehanceExtension < ::Middleman::Extension
     extend Forwardable
 
+    TEMPLATES_DIR = File.expand_path('../template/source/', __FILE__)
+
     def_delegator :app, :logger
 
     option :index_path, 'projects', 'Portfolio index path'
