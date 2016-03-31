@@ -1,4 +1,5 @@
 require 'behance'
+require 'slugify'
 
 # Initialize Behance API client
 class BehanceWrapper
@@ -8,7 +9,12 @@ class BehanceWrapper
   end
 
   def projects
-    project_ids.map { |id| @client.project id }
+    project_ids.map do |id|
+      project = @client.project(id)
+      project['slug'] = project['name'].slugify
+
+      project
+    end
   end
 
   private

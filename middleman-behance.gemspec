@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency('rake')
 
   gem.add_runtime_dependency('behance')
+  gem.add_runtime_dependency('slugify', [ '~> 1.0', '>= 1.0.6'])
   gem.add_runtime_dependency("middleman-core", [">= 4.1.6"])
 
   gem.add_development_dependency('rspec', [">= 2.0.0"])

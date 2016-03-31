@@ -32,7 +32,7 @@ module Middleman
 
       @projects.each do |project|
         resources << SitemapResource.new(app.sitemap,
-        "#{options.index_path}/#{project['name']}", :project, project).resource
+        "#{options.index_path}/#{project['slug']}", :project, project).resource
       end
 
       resources
