@@ -1,5 +1,6 @@
 # Require core library
 require 'middleman-core'
+require 'wrapper'
 
 # Extension namespace
 module Middleman
@@ -9,20 +10,11 @@ module Middleman
     def_delegator :app, :logger
 
     option :index_path, 'projects', 'Portfolio index path'
-    option :access_token, nil, 'Behance API access token'
-    option :user, nil, 'Behance user name or ID'
+    option :access_token, '', 'Behance API access token'
+    option :user, '', 'Behance user name or ID'
 
     def initialize(app, options_hash = {}, &block)
-      # Call super to build options from the options_hash
       super
-
-      # Require libraries only when activated
-      require 'behance'
-    end
-
-    def fetch_projects
-      @projects = Behance::Client.new(access_token: options.access_token)
-                                 .user_projects(options.user)
     end
 
     def after_configuration
@@ -37,5 +29,13 @@ module Middleman
     #   def a_helper
     #   end
     # end
+
+    private
+
+    def fetch_projects
+      @projects = BehanceWrapper
+                  .new(options.access_token, options.user)
+                  .projects
+    end
   end
 end
