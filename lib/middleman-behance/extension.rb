@@ -30,6 +30,11 @@ module Middleman
       resources << SitemapResource.new(app.sitemap, options.index_path,
                                        :portfolio, @projects).resource
 
+      @projects.each do |project|
+        resources << SitemapResource.new(app.sitemap,
+        "#{options.index_path}/#{project['name']}", :project, project).resource
+      end
+
       resources
     end
 
