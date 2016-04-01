@@ -13,6 +13,7 @@ module Middleman
     option :index_path, 'projects', 'Portfolio index path'
     option :access_token, '', 'Behance API access token'
     option :user, '', 'Behance user name or ID'
+    option :tags_whitelist, [], 'User tags whitelist'
     option :project_template, 'project.html.erb', 'Single project page template'
     option :portfolio_template, 'portfolio.html.erb',
            'Portfolio index page template'
@@ -44,7 +45,9 @@ module Middleman
 
     def fetch_projects
       @projects = BehanceWrapper
-                  .new(options.access_token, options.user)
+                  .new(options.access_token,
+                       options.user,
+                       options.tags_whitelist)
                   .projects
     end
   end

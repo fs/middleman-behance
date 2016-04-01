@@ -25,7 +25,8 @@ class SitemapResource
   def portfolio_locals
     {
       index_path: @path,
-      projects: @data
+      projects: @data,
+      tags: @options.tags_whitelist
     }
   end
 
