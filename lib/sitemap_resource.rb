@@ -1,9 +1,9 @@
-require 'middleman-core'
+require "middleman-core"
 
 # Creates new site resource
 class SitemapResource
-  TEMPLATES_DIR = File.expand_path '../middleman-behance/templates/source/',
-                                   __FILE__
+  TEMPLATES_DIR = File.expand_path "../middleman-behance/templates/source/",
+    __FILE__
 
   def initialize(app, path, type, data, options)
     @type = type
@@ -16,8 +16,8 @@ class SitemapResource
 
   def resource
     Middleman::Sitemap::Resource
-    .new(@sitemap, "#{@path}.html", source_file)
-    .tap { |res| res.add_metadata locals: self.send("#{@type}_locals") }
+      .new(@sitemap, "#{@path}.html", source_file)
+      .tap { |res| res.add_metadata locals: send("#{@type}_locals") }
   end
 
   private
@@ -42,7 +42,7 @@ class SitemapResource
     return custom_template if File.exist?(custom_template)
 
     template = File.join TEMPLATES_DIR, filename
-    raise "Template #{@type} does not exist" if !File.exist?(template)
+    raise "Template #{@type} does not exist" unless File.exist?(template)
 
     template
   end

@@ -1,8 +1,7 @@
-require: rubocop-rspec
+Rails:
+  Enabled: false
 
 AllCops:
-  RunRailsCops: false
-  DisplayCopNames: true
   Exclude:
     - bin/**/*
     - vendor/**/*
