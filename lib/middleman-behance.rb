@@ -1,3 +1,4 @@
+# rubocop:disable Style/FileName
 require "middleman-core"
 require "middleman-behance/version"
 

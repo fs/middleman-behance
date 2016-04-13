@@ -31,16 +31,18 @@ module Middleman
       resources << SitemapResource.new(app, options.index_path, :portfolio,
         @projects, options).resource
 
+      project_resources resources
+    end
+
+    private
+
+    def project_resources(resources)
       @projects.each do |project|
         resources << SitemapResource.new(app,
           "#{options.index_path}/#{project['slug']}", :project, project,
           options).resource
       end
-
-      resources
     end
-
-    private
 
     def fetch_projects
       @projects = BehanceWrapper
