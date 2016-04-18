@@ -17,7 +17,7 @@ class SitemapResource
   def resource
     Middleman::Sitemap::Resource
       .new(@sitemap, "#{@path}.html", source_file)
-      .tap { |res| res.add_metadata locals: send("#{@type}_locals") }
+      .tap { |res| res.add_metadata locals: send("#{@type}_locals"), ignore: true }
   end
 
   private

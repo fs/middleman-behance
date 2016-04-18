@@ -42,6 +42,8 @@ module Middleman
           "#{options.index_path}/#{project['slug']}", :project, project,
           options).resource
       end
+
+      resources
     end
 
     def fetch_projects
