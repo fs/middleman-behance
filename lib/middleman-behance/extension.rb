@@ -1,7 +1,7 @@
 # Require core library
 require "middleman-core"
-require "wrapper"
-require "sitemap_resource"
+require "middleman-behance/wrapper"
+require "middleman-behance/sitemap_resource"
 
 # Extension namespace
 module Middleman
@@ -28,7 +28,7 @@ module Middleman
 
     # A Sitemap Manipulator
     def manipulate_resource_list(resources)
-      resources << SitemapResource.new(app, options.index_path, :portfolio,
+      resources << ::MiddlemanBehance::SitemapResource.new(app, options.index_path, :portfolio,
         @projects, options).resource
 
       project_resources resources
@@ -38,7 +38,7 @@ module Middleman
 
     def project_resources(resources)
       @projects.each do |project|
-        resources << SitemapResource.new(app,
+        resources << ::MiddlemanBehance::SitemapResource.new(app,
           "#{options.index_path}/#{project['slug']}", :project, project,
           options).resource
       end
@@ -47,7 +47,7 @@ module Middleman
     end
 
     def fetch_projects
-      @projects = BehanceWrapper
+      @projects = ::MiddlemanBehance::Wrapper
                   .new(options.access_token,
                     options.user,
                     options.tags_whitelist)
