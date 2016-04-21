@@ -24,7 +24,7 @@ module MiddlemanBehance
     private
 
     def project_ids
-      @client.user_projects(@user).map { |project| project["id"] }
+      @client.user_projects(@user, per_page: 25).map { |project| project["id"] }
     rescue NoMethodError
       raise "Can not fetch user projects. Please, check your Behance API access"
     end
