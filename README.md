@@ -38,6 +38,7 @@ You can setup this project in `config.rb`:
     b.project_template = 'project.html.slim' # Custom project template
     b.tags_whitelist = %w(design RubyOnRails front-end Mobile-Development) # List of allowed tags
     b.index_path = 'projects' # Portfolio page path
+    b.pages_count = 2 # Count of fetched pages
   end
 ```
 

@@ -10,6 +10,7 @@ module Middleman
 
     def_delegator :app, :logger
 
+    option :pages_count, 2, "Count of pages that need to be fetched"
     option :index_path, "projects", "Portfolio index path"
     option :access_token, "", "Behance API access token"
     option :user, "", "Behance user name or ID"
@@ -50,7 +51,8 @@ module Middleman
       @projects = ::MiddlemanBehance::Wrapper
                   .new(options.access_token,
                     options.user,
-                    options.tags_whitelist)
+                    options.tags_whitelist,
+                    options.pages_count)
                   .projects
     end
   end
