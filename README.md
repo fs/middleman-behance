@@ -32,13 +32,13 @@ You can setup this project in `config.rb`:
 
 ```ruby
   activate :behance do |b|
-  	b.access_token = 'behance_api_token' # Use ENV['BEHANCE_API_TOKEN'] in production
+  	b.access_token = 'behance_api_token' # Use ENV.fetch('BEHANCE_API_TOKEN') in production
     b.user = 'flatstack' # ID or name of portfolio's creator
     b.portfolio_template = 'portfolio.html.slim' # Custom portfolio template
     b.project_template = 'project.html.slim' # Custom project template
     b.tags_whitelist = %w(design RubyOnRails front-end Mobile-Development) # List of allowed tags
     b.index_path = 'projects' # Portfolio page path
-    b.pages_count = 2 # Count of fetched pages
+    b.pages_count = 2 # Count of fetched pages (25 for each page)
   end
 ```
 
