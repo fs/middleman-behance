@@ -43,10 +43,7 @@ module MiddlemanBehance
 
       return custom_template if File.exist?(custom_template)
 
-      template = File.join TEMPLATES_DIR, filename
-      raise "Template #{@type} does not exist" unless File.exist?(template)
-
-      template
+      File.join TEMPLATES_DIR, filename
     end
   end
 end
