@@ -4,41 +4,35 @@ require "slugify"
 # Initialize Behance API client
 module MiddlemanBehance
   class Wrapper
+    PAGES_COUNT = 2
     PER_PAGE = 25
 
-    def initialize(access_token = "", user = "", tags_whitelist = [], pages = 2)
+    def initialize(access_token = "", user = "", tags_whitelist = [], pages = PAGES_COUNT)
       @client = Behance::Client.new access_token: access_token
       @user = user
       @tags_whitelist = tags_whitelist
       @pages = pages
-      @project_ids = []
     end
 
     def projects
-      fetch_project_ids
-
-      @project_ids.map do |id|
+      @projects ||= project_ids.reduce([]) do |memo, id|
         project = @client.project id
+        next memo unless project
+
         project["slug"] = project["name"].slugify
-        return project if @tags_whitelist.empty?
+        next memo << project if @tags_whitelist.empty?
 
         project["tags"] = project["tags"] & @tags_whitelist
-        project
+        memo << project
       end
     end
 
     private
 
-    def fetch_project_ids
-      (1..@pages).each do |i|
-        begin
-          @client
-            .user_projects(@user, per_page: PER_PAGE, page: i)
-            .each { |project| @project_ids << project["id"] }
-        rescue
-          raise "Can not fetch user projects.
-                 Please, check your Behance API access"
-        end
+    def project_ids
+      @projects_ids ||= (1..@pages).reduce([]) do |memo, i|
+        projects = @client.user_projects(@user, per_page: PER_PAGE, page: i) || []
+        memo + projects.map { |p| p["id"] }
       end
     end
   end
